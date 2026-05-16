@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>astolfo ♡</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        body {
+            width:100%;
+            height:100vh;
+            overflow:hidden;
+            background: linear-gradient(135deg, #ff9ed8, #c79eff);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        #start-screen {
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.35);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:100;
+        }
+
+        .box {
+            background:white;
+            padding:20px;
+            border-radius:18px;
+            max-width:440px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.25);
+            text-align:center;
+        }
+
+        .astolfo {
+            width:100%;
+            max-height:390px;
+            object-fit:contain;
+            border-radius:12px;
+            margin-bottom:15px;
+        }
+
+        h1 {
+            color:#ff69b4;
+            margin:10px 0;
+            font-size:27px;
+        }
+
+        p {
+            line-height:1.5;
+            color:#444;
+            font-size:16.5px;
+            margin-bottom:25px;
+        }
+
+        .buttons {
+            display:flex;
+            gap:14px;
+            justify-content:center;
+        }
+
+        button {
+            padding:13px 34px;
+            font-size:16.5px;
+            font-weight:600;
+            border:none;
+            border-radius:50px;
+            cursor:pointer;
+            transition:all 0.2s;
+        }
+
+        .yes {
+            background:#ff69b4;
+            color:white;
+        }
+        .yes:hover { background:#ff4da6; transform:scale(1.05); }
+
+        .later {
+            background:#eee;
+            color:#333;
+        }
+        .later:hover { background:#ddd; transform:scale(1.05); }
+
+        #video-container {
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:#000;
+            display:none;
+        }
+
+        #video {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <div class="box">
+            <img src="https://www.clipartmax.com/png/full/71-716072_astolfo-school-girl-by-cerberusyuri-astolfo-from-fate-apocrypha.png" 
+                 class="astolfo" alt="astolfo">
+            
+            <h1>hey cutie~ ♡</h1>
+            <p>been waiting for you lol. wanna watch me do my thing? it's pretty cute i promise</p>
+            
+            <div class="buttons">
+                <button class="yes" onclick="startStuff()">yes please ♡</button>
+                <button class="later" onclick="startStuff()">maybe later</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="video-container">
+        <video id="video" loop playsinline>
+            <source src="https://raw.githubusercontent.com/6h051/Red/main/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        function startStuff() {
+            document.getElementById('start-screen').style.opacity = 0;
+            
+            setTimeout(() => {
+                document.getElementById('start-screen').style.display = 'none';
+                
+                const container = document.getElementById('video-container');
+                const vid = document.getElementById('video');
+                
+                container.style.display = 'block';
+                vid.muted = false;
+                
+                vid.play().catch(() => {
+                    vid.muted = true;
+                    vid.play();
+                });
+
+                // try fullscreen
+                try {
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen();
+                    }
+                } catch(e) { }
+            }, 500);
+        }
+
+        // escape key, why tho? idk.
+        document.addEventListener('keydown', e => {
+            if (e.key === "Escape" && document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

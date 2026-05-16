@@ -1,2 +1,0 @@
-# pink
-my head hurts
